@@ -1,76 +1,53 @@
-import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class Courses {
-  final List<Course> courses;
+part 'courses.model.g.dart';
 
-  Courses({required this.courses});
+part 'courses.model.freezed.dart';
 
-  factory Courses.fromJson(List<dynamic> json) {
-    return Courses(
-        courses: json
-            .map((course) => Course.fromJson(course as Map<String, dynamic>))
-            .toList());
-  }
+@freezed
+class CourseResponse with _$CourseResponse {
+  const factory CourseResponse({required List<Course> courses}) =
+      _CourseResponse;
+
+  factory CourseResponse.fromJson(Map<String, dynamic> json) =>
+      _$CourseResponseFromJson(json);
 }
 
-class Course {
-  final String id;
-  final String name;
-  final List<CoursePage> pages;
+@freezed
+class Course with _$Course {
+  const factory Course({
+    required String id,
+    required String name,
+    required List<CoursePage> pages,
+  }) = _Course;
 
-  Course({required this.id, required this.name, required this.pages});
-
-  factory Course.fromJson(Map<String, dynamic> json) {
-    return Course(
-        id: json['id'],
-        name: json['name'],
-        pages: (json['pages'] as List<dynamic>)
-            .map((page) => CoursePage.fromJson(page as Map<String, dynamic>))
-            .toList());
-  }
+  factory Course.fromJson(Map<String, dynamic> json) => _$CourseFromJson(json);
 }
 
-class CoursePage {
-  final String name;
-  final String content;
+@freezed
+class CoursePage with _$CoursePage {
+  const factory CoursePage({
+    required String name,
+    required String content,
+  }) = _CoursePage;
 
-  CoursePage({required this.name, required this.content});
-
-  factory CoursePage.fromJson(Map<String, dynamic> json) {
-    return CoursePage(
-      name: json['name'],
-      content: json['content'],
-    );
-  }
+  factory CoursePage.fromJson(Map<String, dynamic> json) =>
+      _$CoursePageFromJson(json);
 }
 
-class UserProgress extends Equatable {
-  final String courseId;
-  final int currentPage;
-  final bool isOver;
+@freezed
+class UserProgress with _$UserProgress {
+  const UserProgress._();
 
-  const UserProgress({
-    required this.courseId,
-    required this.currentPage,
-    required this.isOver,
-  });
+  const factory UserProgress({
+    required String courseId,
+    required int currentPage,
+    required bool isOver,
+  }) = _UserProgress;
 
-  factory UserProgress.fromJson(Map<String, dynamic> json) {
-    return UserProgress(
-      courseId: json['courseId'],
-      currentPage: json['currentPage'],
-      isOver: json['isOver'],
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    return <String, dynamic>{
-      'courseId': courseId,
-      'currentPage': currentPage,
-      'isOver': isOver,
-    };
-  }
+  factory UserProgress.fromJson(Map<String, dynamic> json) =>
+      _$UserProgressFromJson(json);
 
   double progressPercentage(int coursesPages) {
     if (isOver) {
@@ -91,7 +68,4 @@ class UserProgress extends Equatable {
       return Icons.play_arrow;
     }
   }
-
-  @override
-  List<Object?> get props => [courseId, currentPage, isOver];
 }

@@ -12,7 +12,7 @@ class CoursesPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // Utilisation de notre donnée locale (mockée)
-    final courses = Courses.fromJson(completeCourses).courses;
+    final courses = completeCourses.map((c) => Course.fromJson(c)).toList();
     final progresses = ref.watch(coursesProgressProvider);
     return Scaffold(
       appBar: AppBar(
