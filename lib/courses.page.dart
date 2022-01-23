@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutters_tips_and_tricks/course_details.page.dart';
 import 'package:flutters_tips_and_tricks/courses.model.dart';
+import 'package:flutters_tips_and_tricks/main.dart';
 import 'package:flutters_tips_and_tricks/utils/courses_utils.dart';
 
-class CoursesPage extends StatelessWidget {
+class CoursesPage extends ConsumerWidget {
   const CoursesPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     // Utilisation de notre donnée locale (mockée)
     final courses = Courses.fromJson(completeCourses).courses;
+    final progresses = ref.watch(coursesProgressProvider);
     return Scaffold(
       appBar: AppBar(
         title: Row(
@@ -29,15 +32,33 @@ class CoursesPage extends StatelessWidget {
           // ℹ️ 👁‍🗨 Concept intéressant en Dart : la possibilité de déclarer
           // des boucles for ou des conditions if à l'intérieur d'une liste
           for (Course course in courses)
-            if (course.id != 'do_not_put_there') _courseTile(context, course),
+            if (course.id != 'do_not_put_there')
+              _courseTile(
+                context,
+                course,
+                progresses,
+              ),
         ],
       ),
     );
   }
 }
 
-Widget _courseTile(BuildContext context, Course course) {
-  double progressPercentage = 0.2;
+Widget _courseTile(
+    BuildContext context, Course course, List<UserProgress> progresses) {
+  final courseProgress = progresses.firstWhere(
+    (p) => p.courseId == course.id,
+    orElse: () => UserProgress(
+      courseId: course.id,
+      currentPage: 0,
+      isOver: false,
+    ),
+  );
+
+  final double progressPercentage =
+      courseProgress.progressPercentage(course.pages.length);
+  final initialPage = courseProgress.isOver ? 0 : courseProgress.currentPage;
+  final IconData icon = courseProgress.icon(course.pages.length);
 
   // ℹ️ 👁‍🗨 On peut imbriquer des méthodes en Dart (nested)
   Widget _tile() {
@@ -49,9 +70,9 @@ Widget _courseTile(BuildContext context, Course course) {
         ),
         width: 40,
         height: 40,
-        child: const Center(
+        child: Center(
           child: Icon(
-            Icons.play_arrow,
+            icon,
             color: Colors.white,
           ),
         ),
@@ -84,7 +105,7 @@ Widget _courseTile(BuildContext context, Course course) {
         MaterialPageRoute(
           builder: (_) => CourseDetailsPage(
             course: course,
-            initialPage: 0,
+            initialPage: initialPage,
           ),
         ),
       );

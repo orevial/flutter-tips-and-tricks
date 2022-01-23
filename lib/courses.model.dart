@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class Courses {
   final List<Course> courses;
 
@@ -39,5 +41,37 @@ class CoursePage {
       name: json['name'],
       content: json['content'],
     );
+  }
+}
+
+class UserProgress {
+  final String courseId;
+  final int currentPage;
+  final bool isOver;
+
+  const UserProgress({
+    required this.courseId,
+    required this.currentPage,
+    required this.isOver,
+  });
+
+  double progressPercentage(int coursesPages) {
+    if (isOver) {
+      return 1.0;
+    } else if (currentPage == 0 || coursesPages == 0) {
+      return 0.0;
+    } else {
+      return currentPage / coursesPages;
+    }
+  }
+
+  IconData icon(int coursePages) {
+    if (isOver) {
+      return Icons.restart_alt;
+    } else if (progressPercentage(coursePages) == 0.0) {
+      return Icons.school;
+    } else {
+      return Icons.play_arrow;
+    }
   }
 }

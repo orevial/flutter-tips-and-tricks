@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutters_tips_and_tricks/course_progress_indicator.dart';
 import 'package:flutters_tips_and_tricks/courses.model.dart';
+import 'package:flutters_tips_and_tricks/main.dart';
 
-class CourseDetailsPage extends StatefulWidget {
+class CourseDetailsPage extends ConsumerStatefulWidget {
   final Course course;
   final int initialPage;
 
@@ -16,10 +18,10 @@ class CourseDetailsPage extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<CourseDetailsPage> createState() => _CourseDetailsPageState();
+  _CourseDetailsPageState createState() => _CourseDetailsPageState();
 }
 
-class _CourseDetailsPageState extends State<CourseDetailsPage> {
+class _CourseDetailsPageState extends ConsumerState<CourseDetailsPage> {
   late final _pageController = PageController(initialPage: widget.initialPage);
 
   // ℹ️ 👁‍🗨 On utilise un "getter" Dart, c'est à dire qu'on déclare une propriété
@@ -53,7 +55,11 @@ class _CourseDetailsPageState extends State<CourseDetailsPage> {
           ? FloatingActionButton(
               key: const Key('terminate-course-fab'),
               onPressed: () {
-                print('Course finished !');
+                ref.read(coursesProgressProvider.notifier).updateCourseProgress(
+                      widget.course.id,
+                      currentPage,
+                      true,
+                    );
                 Navigator.of(context).pop();
               },
               child: const Icon(Icons.check),
@@ -75,7 +81,13 @@ class _CourseDetailsPageState extends State<CourseDetailsPage> {
           child: PageView(
             controller: _pageController,
             onPageChanged: (_) {
-              setState(() {});
+              setState(() {
+                ref.read(coursesProgressProvider.notifier).updateCourseProgress(
+                      widget.course.id,
+                      currentPage,
+                      false,
+                    );
+              });
             },
             // ℹ️ 👁‍🗨 Une autre manière d'utiliser une liste plus axée "programmation fonctionnelle"...
             // Utilisez la manière que vous préférez !
