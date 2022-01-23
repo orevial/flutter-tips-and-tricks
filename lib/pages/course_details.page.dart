@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutters_tips_and_tricks/course_progress_indicator.dart';
-import 'package:flutters_tips_and_tricks/courses.model.dart';
+import 'package:flutters_tips_and_tricks/widgets/course_progress_indicator.dart';
+import 'package:flutters_tips_and_tricks/models/courses.model.dart';
 import 'package:flutters_tips_and_tricks/main.dart';
 
 class CourseDetailsPage extends ConsumerStatefulWidget {

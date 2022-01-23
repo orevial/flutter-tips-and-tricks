@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutters_tips_and_tricks/course_details.page.dart';
-import 'package:flutters_tips_and_tricks/courses.model.dart';
+import 'package:flutters_tips_and_tricks/pages/course_details.page.dart';
+import 'package:flutters_tips_and_tricks/models/courses.model.dart';
 import 'package:flutters_tips_and_tricks/main.dart';
-import 'package:flutters_tips_and_tricks/settings_modal.dart';
+import 'package:flutters_tips_and_tricks/pages/settings_modal.dart';
 import 'package:flutters_tips_and_tricks/utils/courses_utils.dart';
 
 class CoursesPage extends ConsumerWidget {

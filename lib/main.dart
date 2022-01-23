@@ -2,11 +2,11 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutters_tips_and_tricks/course_progress.dart';
-import 'package:flutters_tips_and_tricks/courses.model.dart';
-import 'package:flutters_tips_and_tricks/courses.page.dart';
-import 'package:flutters_tips_and_tricks/settings_modal.dart';
-import 'package:flutters_tips_and_tricks/theme.dart';
+import 'package:flutters_tips_and_tricks/state/course_progress.dart';
+import 'package:flutters_tips_and_tricks/models/courses.model.dart';
+import 'package:flutters_tips_and_tricks/pages/courses.page.dart';
+import 'package:flutters_tips_and_tricks/pages/settings_modal.dart';
+import 'package:flutters_tips_and_tricks/utils/theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 late final Provider<SharedPreferences> prefsProvider;
