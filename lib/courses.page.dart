@@ -35,6 +35,7 @@ class CoursesPage extends ConsumerWidget {
             if (course.id != 'do_not_put_there')
               _courseTile(
                 context,
+                ref,
                 course,
                 progresses,
               ),
@@ -45,7 +46,11 @@ class CoursesPage extends ConsumerWidget {
 }
 
 Widget _courseTile(
-    BuildContext context, Course course, List<UserProgress> progresses) {
+  BuildContext context,
+  WidgetRef ref,
+  Course course,
+  List<UserProgress> progresses,
+) {
   final courseProgress = progresses.firstWhere(
     (p) => p.courseId == course.id,
     orElse: () => UserProgress(
@@ -101,6 +106,11 @@ Widget _courseTile(
 
   return InkWell(
     onTap: () {
+      if (courseProgress.isOver) {
+        ref
+            .read(coursesProgressProvider.notifier)
+            .updateCourseProgress(course.id, initialPage, false);
+      }
       Navigator.of(context).push(
         MaterialPageRoute(
           builder: (_) => CourseDetailsPage(

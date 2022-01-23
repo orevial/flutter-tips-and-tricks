@@ -55,6 +55,22 @@ class UserProgress {
     required this.isOver,
   });
 
+  factory UserProgress.fromJson(Map<String, dynamic> json) {
+    return UserProgress(
+      courseId: json['courseId'],
+      currentPage: json['currentPage'],
+      isOver: json['isOver'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return <String, dynamic>{
+      'courseId': courseId,
+      'currentPage': currentPage,
+      'isOver': isOver,
+    };
+  }
+
   double progressPercentage(int coursesPages) {
     if (isOver) {
       return 1.0;
