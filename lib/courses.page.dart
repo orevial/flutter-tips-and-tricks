@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutters_tips_and_tricks/course_details.page.dart';
 import 'package:flutters_tips_and_tricks/courses.model.dart';
 import 'package:flutters_tips_and_tricks/main.dart';
+import 'package:flutters_tips_and_tricks/settings_modal.dart';
 import 'package:flutters_tips_and_tricks/utils/courses_utils.dart';
 
 class CoursesPage extends ConsumerWidget {
@@ -26,6 +27,21 @@ class CoursesPage extends ConsumerWidget {
             Text('Flutter courses'),
           ],
         ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.light_mode),
+            onPressed: () async {
+              final newTheme = await showDialog(
+                context: context,
+                builder: (context) => const SettingsModal(),
+              ) as ThemeMode?;
+              if (newTheme != null) {
+                ref.read(themeProvider.state).state = newTheme;
+                ref.read(prefsProvider).setString('theme_mode', newTheme.name);
+              }
+            },
+          ),
+        ],
       ),
       body: ListView(
         children: [

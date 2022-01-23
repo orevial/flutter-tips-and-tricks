@@ -74,7 +74,7 @@ class _CourseDetailsPageState extends ConsumerState<CourseDetailsPage> {
         buildPageIndicator(
           currentPage: currentPage,
           totalPages: widget.course.pages.length,
-          primaryColor: Theme.of(context).primaryColor,
+          primaryColor: Theme.of(context).colorScheme.primary,
         ),
         const SizedBox(height: 25),
         Expanded(
