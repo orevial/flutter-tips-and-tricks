@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
 class Courses {
@@ -44,7 +45,7 @@ class CoursePage {
   }
 }
 
-class UserProgress {
+class UserProgress extends Equatable {
   final String courseId;
   final int currentPage;
   final bool isOver;
@@ -90,4 +91,7 @@ class UserProgress {
       return Icons.play_arrow;
     }
   }
+
+  @override
+  List<Object?> get props => [courseId, currentPage, isOver];
 }

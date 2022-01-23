@@ -9,7 +9,7 @@ import 'package:flutters_tips_and_tricks/pages/settings_modal.dart';
 import 'package:flutters_tips_and_tricks/utils/theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-late final Provider<SharedPreferences> prefsProvider;
+late Provider<SharedPreferences> prefsProvider;
 
 late final themeProvider = StateProvider<ThemeMode>((ref) {
   final prefs = ref.watch(prefsProvider);
@@ -25,7 +25,7 @@ late final coursesProgressProvider =
         .where((key) => key.startsWith('course_'))
         .map((key) => UserProgress.fromJson(jsonDecode(prefs.getString(key)!)))
         .toList();
-    return CourseProgress(progresses);
+    return CourseProgress(prefs, progresses);
   },
 );
 

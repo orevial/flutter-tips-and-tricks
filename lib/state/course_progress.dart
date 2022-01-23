@@ -5,7 +5,10 @@ import 'package:flutters_tips_and_tricks/models/courses.model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CourseProgress extends StateNotifier<List<UserProgress>> {
-  CourseProgress(List<UserProgress> initialCoursesProgress)
+  final SharedPreferences prefs;
+
+  CourseProgress(
+      this.prefs, List<UserProgress> initialCoursesProgress)
       : super(initialCoursesProgress);
 
   void updateCourseProgress(String courseId, int currentPage, bool isOver) {
@@ -40,8 +43,7 @@ class CourseProgress extends StateNotifier<List<UserProgress>> {
     }
   }
 
-  void _saveCourseProgress(UserProgress progress) async {
-    final prefs = await SharedPreferences.getInstance();
+  void _saveCourseProgress(UserProgress progress) {
     prefs.setString(
         'course_${progress.courseId}', jsonEncode(progress.toJson()));
   }
