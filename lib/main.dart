@@ -9,6 +9,11 @@ import 'package:flutters_tips_and_tricks/pages/settings_modal.dart';
 import 'package:flutters_tips_and_tricks/utils/theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'package:http/http.dart' as http;
+
+const coursesSnippetUrl =
+    'https://gitlab.com/stack-labs/oss/flutter-tips-and-tricks/-/snippets/2233566/raw/main/courses.json';
+
 late Provider<SharedPreferences> prefsProvider;
 
 late final themeProvider = StateProvider<ThemeMode>((ref) {
@@ -28,6 +33,14 @@ late final coursesProgressProvider =
     return CourseProgress(prefs, progresses);
   },
 );
+
+late final coursesProvider = FutureProvider((_) async {
+  return http
+      .get(Uri.parse(coursesSnippetUrl))
+      .then((response) => response.body)
+      .then((data) => jsonDecode(data))
+      .then((json) => CourseResponse.fromJson(json));
+});
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

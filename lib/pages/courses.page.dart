@@ -12,8 +12,6 @@ class CoursesPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // Utilisation de notre donnée locale (mockée)
-    final courses = completeCourses.map((c) => Course.fromJson(c)).toList();
-    final progresses = ref.watch(coursesProgressProvider);
     return Scaffold(
       appBar: AppBar(
         title: Row(
@@ -43,11 +41,25 @@ class CoursesPage extends ConsumerWidget {
           ),
         ],
       ),
-      body: ListView(
+      body: _buildContent(context, ref),
+    );
+  }
+}
+
+Widget _buildContent(
+  BuildContext context,
+  WidgetRef ref,
+) {
+  AsyncValue<CourseResponse> courses = ref.watch(coursesProvider);
+  final progresses = ref.watch(coursesProgressProvider);
+
+  return courses.when(
+    data: (data) {
+      return ListView(
         children: [
           // ℹ️ 👁‍🗨 Concept intéressant en Dart : la possibilité de déclarer
           // des boucles for ou des conditions if à l'intérieur d'une liste
-          for (Course course in courses)
+          for (Course course in data.courses)
             if (course.id != 'do_not_put_there')
               _courseTile(
                 context,
@@ -56,9 +68,16 @@ class CoursesPage extends ConsumerWidget {
                 progresses,
               ),
         ],
-      ),
-    );
-  }
+      );
+    },
+    error: (e, __) => Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Text('Err: $e'),
+    ),
+    loading: () => const Center(
+      child: CircularProgressIndicator(),
+    ),
+  );
 }
 
 Widget _courseTile(
