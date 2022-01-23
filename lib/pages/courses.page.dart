@@ -57,13 +57,9 @@ Widget _buildContent(
     data: (data) {
       return ListView(
         children: [
-          // ℹ️ 👁‍🗨 Concept intéressant en Dart : la possibilité de déclarer
-          // des boucles for ou des conditions if à l'intérieur d'une liste
           for (Course course in data.courses)
             if (course.id != 'do_not_put_there')
-              _courseTile(
-                context,
-                ref,
+              CourseTile(
                 course,
                 progresses,
               ),
@@ -80,89 +76,95 @@ Widget _buildContent(
   );
 }
 
-Widget _courseTile(
-  BuildContext context,
-  WidgetRef ref,
-  Course course,
-  List<UserProgress> progresses,
-) {
-  final courseProgress = progresses.firstWhere(
-    (p) => p.courseId == course.id,
-    orElse: () => UserProgress(
-      courseId: course.id,
-      currentPage: 0,
-      isOver: false,
-    ),
-  );
+class CourseTile extends ConsumerWidget {
+  final Course course;
+  final List<UserProgress> progresses;
 
-  final double progressPercentage =
-      courseProgress.progressPercentage(course.pages.length);
-  final initialPage = courseProgress.isOver ? 0 : courseProgress.currentPage;
-  final IconData icon = courseProgress.icon(course.pages.length);
+  const CourseTile(
+    this.course,
+    this.progresses, {
+    Key? key,
+  }) : super(key: key);
 
-  // ℹ️ 👁‍🗨 On peut imbriquer des méthodes en Dart (nested)
-  Widget _tile() {
-    return ListTile(
-      trailing: Container(
-        decoration: BoxDecoration(
-          color: progressPercentage > 0 ? Colors.green.shade800 : Colors.blue,
-          shape: BoxShape.circle,
-        ),
-        width: 40,
-        height: 40,
-        child: Center(
-          child: Icon(
-            icon,
-            color: Colors.white,
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final courseProgress = progresses.firstWhere(
+      (p) => p.courseId == course.id,
+      orElse: () => UserProgress(
+        courseId: course.id,
+        currentPage: 0,
+        isOver: false,
+      ),
+    );
+
+    final double progressPercentage =
+        courseProgress.progressPercentage(course.pages.length);
+    final initialPage = courseProgress.isOver ? 0 : courseProgress.currentPage;
+    final IconData icon = courseProgress.icon(course.pages.length);
+
+    Widget _tile() {
+      return ListTile(
+        trailing: Container(
+          decoration: BoxDecoration(
+            color: progressPercentage > 0 ? Colors.green.shade800 : Colors.blue,
+            shape: BoxShape.circle,
+          ),
+          width: 40,
+          height: 40,
+          child: Center(
+            child: Icon(
+              icon,
+              color: Colors.white,
+            ),
           ),
         ),
-      ),
-      title: Text(course.name),
-    );
-  }
-
-  Widget _progressBar() {
-    return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(colors: [
-          Colors.green.shade200,
-          Colors.green.shade800,
-          Colors.transparent,
-        ], stops: [
-          0,
-          progressPercentage,
-          progressPercentage,
-        ]),
-      ),
-      height: 5,
-      width: double.infinity,
-    );
-  }
-
-  return InkWell(
-    onTap: () {
-      if (courseProgress.isOver) {
-        ref
-            .read(coursesProgressProvider.notifier)
-            .updateCourseProgress(course.id, initialPage, false);
-      }
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (_) => CourseDetailsPage(
-            course: course,
-            initialPage: initialPage,
-          ),
-        ),
+        title: Text(course.name),
       );
-    },
-    child: Card(
-      margin: const EdgeInsets.all(8.0),
-      child: Column(
-        children: [
-          _tile(),
-          _progressBar(),
-        ],
+    }
+
+    Widget _progressBar() {
+      return Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(colors: [
+            Colors.green.shade200,
+            Colors.green.shade800,
+            Colors.transparent,
+          ], stops: [
+            0,
+            progressPercentage,
+            progressPercentage,
+          ]),
+        ),
+        height: 5,
+        width: double.infinity,
+      );
+    }
+
+    return InkWell(
+      onTap: () {
+        if (courseProgress.isOver) {
+          ref
+              .read(coursesProgressProvider.notifier)
+              .updateCourseProgress(course.id, initialPage, false);
+        }
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (_) => CourseDetailsPage(
+              course: course,
+              initialPage: initialPage,
+            ),
+          ),
+        );
+      },
+      child: Card(
+        margin: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            _tile(),
+            _progressBar(),
+          ],
+        ),
       ),
-    ),
-  );
+    );
+  }
 }
