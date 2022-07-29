@@ -2,7 +2,50 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutters_tips_and_tricks/models/courses.model.dart';
 
+import '../test_utils.dart';
+
+class TestWidget extends StatelessWidget {
+  const TestWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    bool canDeletePost = true;
+    final String user = 'Devoxx';
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text('Hello $user'),
+        if (canDeletePost) const Icon(Icons.delete),
+      ],
+    );
+  }
+}
+
 void main() {
+  testWidgets(
+    'test widget',
+    (tester) async {
+      // Load fonts so display is correct
+      await tester.runAsync(() => loadFonts());
+
+      // Actually load the widget
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: Scaffold(
+            body: TestWidget(),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      // Evaluate result against golden
+      await expectLater(
+        find.byType(Scaffold),
+        matchesGoldenFile('golden/test-widget.jpg'),
+      );
+    },
+  );
+
   group('UserProgress percentage', () {
     test('is 0 when course has not started', () {
       const progress = UserProgress(

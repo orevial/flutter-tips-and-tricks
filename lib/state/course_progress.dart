@@ -4,6 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutters_tips_and_tricks/models/courses.model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+
+
 class CourseProgress extends StateNotifier<List<UserProgress>> {
   final SharedPreferences prefs;
 
