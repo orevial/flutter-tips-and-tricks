@@ -5,9 +5,9 @@ class TestWidgetSample extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String user = 'Devoxx';
+    const String user = 'Devoxx';
     return Column(
-      children: [
+      children: const [
         Text('Hello $user'),
 
         // 1. Optionaly display delete icon
@@ -23,12 +23,12 @@ class TestWidgetForInlineIf extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool canDeletePost = true;
-    final String user = 'Devoxx';
+    const bool canDeletePost = true;
+    const String user = 'Devoxx';
     return Row(
-      children: [
+      children: const [
         Text('Hello $user'),
-        if (canDeletePost) const Icon(Icons.delete),
+        if (canDeletePost) Icon(Icons.delete),
       ],
     );
   }
@@ -39,13 +39,12 @@ class TestWidgetForInlineFor extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String user = 'Devoxx';
-    final friends =['Friend 1', 'Friend 2'];
+    const String user = 'Devoxx';
+    final friends = ['Friend 1', 'Friend 2'];
     return Column(
       children: [
-        Text('Hello $user. Your friends :'),
-        for(final friend in friends)
-          Text(' - $friend'),
+        const Text('Hello $user. Your friends :'),
+        for (final friend in friends) Text(' - $friend'),
       ],
     );
   }
@@ -56,11 +55,11 @@ class TestWidgetForSpreadOperator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String user = 'Devoxx';
+    const String user = 'Devoxx';
     final friends = ['Friend 1', 'Friend 2'];
     return Column(
       children: [
-        Text('Hello $user. Your friends :'),
+        const Text('Hello $user. Your friends :'),
         ...friends.map((friend) => Text(' - $friend'))
       ],
     );
@@ -107,7 +106,9 @@ Widget buildPageIndicator({
       totalPages,
       (i) {
         return _indicator(
-            isActive: i == currentPage, isViewed: i < currentPage);
+          isActive: i == currentPage,
+          isViewed: i < currentPage,
+        );
       },
     ).toList(),
   );

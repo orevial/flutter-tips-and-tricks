@@ -1,7 +1,7 @@
 name: flutters_tips_and_tricks
 description: A new Flutter project.
 
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: 'none'
 
 version: 1.0.0+1
 
@@ -23,7 +23,13 @@ dev_dependencies:
     sdk: flutter
   integration_test:
     sdk: flutter
-  flutter_lints: ^2.0.1
+  dart_code_metrics: ^4.14.0
+  # We use 'lint' package rather than default 'flutter_lints' package because it is more
+  # restrictive which is considered a good thing as it allows for stronger and more coherent
+  # coding practice in a team. This package implements around 75% of linter rules
+  # versus only 45% for flutter_lints
+  # See this article for more info: https://rydmike.com/blog_flutter_linting.html
+  lint: ^1.8.2
   mockito: ^5.0.17
   mocktail: ^0.3.0
   build_runner: ^2.1.7

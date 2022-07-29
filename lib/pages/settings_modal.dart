@@ -26,7 +26,7 @@ extension _ThemeModeUtils on ThemeMode {
 
 ThemeMode themeModeFromString(String? value) {
   return ThemeMode.values.firstWhere(
-        (mode) => mode.name == value,
+    (mode) => mode.name == value,
     orElse: () => ThemeMode.system,
   );
 }

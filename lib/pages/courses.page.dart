@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutters_tips_and_tricks/pages/course_details.page.dart';
-import 'package:flutters_tips_and_tricks/models/courses.model.dart';
 import 'package:flutters_tips_and_tricks/main.dart';
+import 'package:flutters_tips_and_tricks/models/courses.model.dart';
+import 'package:flutters_tips_and_tricks/pages/course_details.page.dart';
 import 'package:flutters_tips_and_tricks/pages/settings_modal.dart';
-import 'package:flutters_tips_and_tricks/utils/courses_utils.dart';
 
 class CoursesPage extends ConsumerWidget {
   const CoursesPage({Key? key}) : super(key: key);
@@ -35,7 +34,9 @@ class CoursesPage extends ConsumerWidget {
               ) as ThemeMode?;
               if (newTheme != null) {
                 ref.read(themeProvider.state).state = newTheme;
-                ref.read(prefsProvider).setString('theme_mode', newTheme.name);
+                await ref
+                    .read(prefsProvider)
+                    .setString('theme_mode', newTheme.name);
               }
             },
           ),
@@ -50,7 +51,7 @@ Widget _buildContent(
   BuildContext context,
   WidgetRef ref,
 ) {
-  AsyncValue<CourseResponse> courses = ref.watch(coursesProvider);
+  final AsyncValue<CourseResponse> courses = ref.watch(coursesProvider);
   final progresses = ref.watch(coursesProgressProvider);
 
   return courses.when(
@@ -125,15 +126,18 @@ class CourseTile extends ConsumerWidget {
     Widget _progressBar() {
       return Container(
         decoration: BoxDecoration(
-          gradient: LinearGradient(colors: [
-            Colors.green.shade200,
-            Colors.green.shade800,
-            Colors.transparent,
-          ], stops: [
-            0,
-            progressPercentage,
-            progressPercentage,
-          ]),
+          gradient: LinearGradient(
+            colors: [
+              Colors.green.shade200,
+              Colors.green.shade800,
+              Colors.transparent,
+            ],
+            stops: [
+              0,
+              progressPercentage,
+              progressPercentage,
+            ],
+          ),
         ),
         height: 5,
         width: double.infinity,
@@ -143,9 +147,11 @@ class CourseTile extends ConsumerWidget {
     return InkWell(
       onTap: () {
         if (courseProgress.isOver) {
-          ref
-              .read(coursesProgressProvider.notifier)
-              .updateCourseProgress(course.id, initialPage, false);
+          ref.read(coursesProgressProvider.notifier).updateCourseProgress(
+                course.id,
+                initialPage,
+                isOver: false,
+              );
         }
         Navigator.of(context).push(
           MaterialPageRoute(

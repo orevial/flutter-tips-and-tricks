@@ -14,7 +14,7 @@ class Listener extends Mock {
 
 void main() {
   Future<void> setupSharedPrefs() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefsProvider = Provider((_) => prefs);
   }
 
@@ -40,11 +40,13 @@ void main() {
 
   test('is created with saved user progresses', () async {
     SharedPreferences.setMockInitialValues({
-      'course_test-1': jsonEncode(const UserProgress(
-        courseId: 'test-1',
-        currentPage: 2,
-        isOver: false,
-      ).toJson()),
+      'course_test-1': jsonEncode(
+        const UserProgress(
+          courseId: 'test-1',
+          currentPage: 2,
+          isOver: false,
+        ).toJson(),
+      ),
     });
     await setupSharedPrefs();
 
@@ -60,70 +62,76 @@ void main() {
     );
 
     // Verify that initial state contains our saved course from shared prefs
-    verify(listener(null, [
-      const UserProgress(
-        courseId: 'test-1',
-        currentPage: 2,
-        isOver: false,
-      ),
-    ])).called(1);
+    verify(
+      listener(null, [
+        const UserProgress(
+          courseId: 'test-1',
+          currentPage: 2,
+          isOver: false,
+        ),
+      ]),
+    ).called(1);
     verifyNoMoreInteractions(listener);
 
     // Add progress for a new course
     container
         .read(coursesProgressProvider.notifier)
-        .updateCourseProgress('another-course', 4, true);
+        .updateCourseProgress('another-course', 4, isOver: true);
 
     // Verify that new state includes both initial course and newly updated course
-    verify(listener([
-      const UserProgress(
-        courseId: 'test-1',
-        currentPage: 2,
-        isOver: false,
-      ),
-    ], [
-      const UserProgress(
-        courseId: 'test-1',
-        currentPage: 2,
-        isOver: false,
-      ),
-      const UserProgress(
-        courseId: 'another-course',
-        currentPage: 4,
-        isOver: true,
-      ),
-    ])).called(1);
+    verify(
+      listener([
+        const UserProgress(
+          courseId: 'test-1',
+          currentPage: 2,
+          isOver: false,
+        ),
+      ], [
+        const UserProgress(
+          courseId: 'test-1',
+          currentPage: 2,
+          isOver: false,
+        ),
+        const UserProgress(
+          courseId: 'another-course',
+          currentPage: 4,
+          isOver: true,
+        ),
+      ]),
+    ).called(1);
     verifyNoMoreInteractions(listener);
 
     // Update progress of an already saved course
     container
         .read(coursesProgressProvider.notifier)
-        .updateCourseProgress('test-1', 5, false);
+        .updateCourseProgress('test-1', 5, isOver: false);
 
     // Verify that new state includes both initial course and newly updated course
-    verify(listener([
-      const UserProgress(
-        courseId: 'test-1',
-        currentPage: 2,
-        isOver: false,
-      ),
-      const UserProgress(
-        courseId: 'another-course',
-        currentPage: 4,
-        isOver: true,
-      ),
-    ], [
-      const UserProgress(
-        courseId: 'test-1',
-        currentPage: 5,
-        isOver: false,
-      ),
-      const UserProgress(
-        courseId: 'another-course',
-        currentPage: 4,
-        isOver: true,
-      ),
-    ])).called(1);
+    verify(
+      listener([
+        const UserProgress(
+          courseId: 'test-1',
+          currentPage: 2,
+          isOver: false,
+        ),
+        const UserProgress(
+          courseId: 'another-course',
+          currentPage: 4,
+          isOver: true,
+        ),
+      ], [
+        const UserProgress(
+          courseId: 'test-1',
+          currentPage: 5,
+          isOver: false,
+        ),
+        const UserProgress(
+          courseId: 'another-course',
+          currentPage: 4,
+          isOver: true,
+        ),
+      ]),
+    ).called(1);
     verifyNoMoreInteractions(listener);
   });
 }

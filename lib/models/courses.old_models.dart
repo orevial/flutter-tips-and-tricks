@@ -8,9 +8,10 @@ class Courses {
 
   factory Courses.fromJson(List<dynamic> json) {
     return Courses(
-        courses: json
-            .map((course) => Course.fromJson(course as Map<String, dynamic>))
-            .toList());
+      courses: json
+          .map((course) => Course.fromJson(course as Map<String, dynamic>))
+          .toList(),
+    );
   }
 }
 
@@ -23,11 +24,12 @@ class Course {
 
   factory Course.fromJson(Map<String, dynamic> json) {
     return Course(
-        id: json['id'],
-        name: json['name'],
-        pages: (json['pages'] as List<dynamic>)
-            .map((page) => CoursePage.fromJson(page as Map<String, dynamic>))
-            .toList());
+      id: json['id'] as String,
+      name: json['name'] as String,
+      pages: (json['pages'] as List<dynamic>)
+          .map((page) => CoursePage.fromJson(page as Map<String, dynamic>))
+          .toList(),
+    );
   }
 }
 
@@ -39,8 +41,8 @@ class CoursePage {
 
   factory CoursePage.fromJson(Map<String, dynamic> json) {
     return CoursePage(
-      name: json['name'],
-      content: json['content'],
+      name: json['name'] as String,
+      content: json['content'] as String,
     );
   }
 }
@@ -58,9 +60,9 @@ class UserProgress extends Equatable {
 
   factory UserProgress.fromJson(Map<String, dynamic> json) {
     return UserProgress(
-      courseId: json['courseId'],
-      currentPage: json['currentPage'],
-      isOver: json['isOver'],
+      courseId: json['courseId'] as String,
+      currentPage: json['currentPage'] as int,
+      isOver: json['isOver'] as bool,
     );
   }
 

@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutters_tips_and_tricks/widgets/course_progress_indicator.dart';
-import 'package:flutters_tips_and_tricks/models/courses.model.dart';
 import 'package:flutters_tips_and_tricks/main.dart';
+import 'package:flutters_tips_and_tricks/models/courses.model.dart';
+import 'package:flutters_tips_and_tricks/widgets/course_progress_indicator.dart';
 
 class CourseDetailsPage extends ConsumerStatefulWidget {
   final Course course;
   final int initialPage;
 
   const CourseDetailsPage({
-    Key? key,
     // ℹ️ 👁‍🗨 Ici on utilise des arguments nommés plutôt que de simples "positional arguments"
     // parce que sinon il ne serait pas clair pour l'appelant à quoi correspond
     // chacun des paramètres
     required this.course,
     required this.initialPage,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -58,7 +58,7 @@ class _CourseDetailsPageState extends ConsumerState<CourseDetailsPage> {
                 ref.read(coursesProgressProvider.notifier).updateCourseProgress(
                       widget.course.id,
                       currentPage,
-                      true,
+                      isOver: true,
                     );
                 Navigator.of(context).pop();
               },
@@ -85,7 +85,7 @@ class _CourseDetailsPageState extends ConsumerState<CourseDetailsPage> {
                 ref.read(coursesProgressProvider.notifier).updateCourseProgress(
                       widget.course.id,
                       currentPage,
-                      false,
+                      isOver: false,
                     );
               });
             },

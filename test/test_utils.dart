@@ -66,7 +66,7 @@ Future<void> loadFonts() async {
   ];
 
   final robotoFontLoader = FontLoader('Roboto');
-  for (var variant in robotoFontVariants) {
+  for (final variant in robotoFontVariants) {
     final font = flutterRoot
         .childFile(
           fs.path.join(

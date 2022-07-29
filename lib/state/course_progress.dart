@@ -4,21 +4,26 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutters_tips_and_tricks/models/courses.model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
-
 class CourseProgress extends StateNotifier<List<UserProgress>> {
   final SharedPreferences prefs;
 
   CourseProgress(
-      this.prefs, List<UserProgress> initialCoursesProgress)
-      : super(initialCoursesProgress);
+    this.prefs,
+    List<UserProgress> initialCoursesProgress,
+  ) : super(initialCoursesProgress);
 
-  void updateCourseProgress(String courseId, int currentPage, bool isOver) {
-    _saveCourseProgress(UserProgress(
-      courseId: courseId,
-      currentPage: currentPage,
-      isOver: isOver,
-    ));
+  void updateCourseProgress(
+    String courseId,
+    int currentPage, {
+    required bool isOver,
+  }) {
+    _saveCourseProgress(
+      UserProgress(
+        courseId: courseId,
+        currentPage: currentPage,
+        isOver: isOver,
+      ),
+    );
     if (state.any((c) => c.courseId == courseId)) {
       state = [
         for (final progress in state)
@@ -47,6 +52,8 @@ class CourseProgress extends StateNotifier<List<UserProgress>> {
 
   void _saveCourseProgress(UserProgress progress) {
     prefs.setString(
-        'course_${progress.courseId}', jsonEncode(progress.toJson()));
+      'course_${progress.courseId}',
+      jsonEncode(progress.toJson()),
+    );
   }
 }

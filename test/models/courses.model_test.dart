@@ -9,13 +9,13 @@ class TestWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool canDeletePost = true;
-    final String user = 'Devoxx';
+    const bool canDeletePost = true;
+    const String user = 'Devoxx';
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
+      children: const [
         Text('Hello $user'),
-        if (canDeletePost) const Icon(Icons.delete),
+        if (canDeletePost) Icon(Icons.delete),
       ],
     );
   }

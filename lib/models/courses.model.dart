@@ -38,13 +38,13 @@ class CoursePage with _$CoursePage {
 
 @freezed
 class UserProgress with _$UserProgress {
-  const UserProgress._();
-
   const factory UserProgress({
     required String courseId,
     required int currentPage,
     required bool isOver,
   }) = _UserProgress;
+
+  const UserProgress._();
 
   factory UserProgress.fromJson(Map<String, dynamic> json) =>
       _$UserProgressFromJson(json);

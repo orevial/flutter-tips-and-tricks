@@ -65,8 +65,9 @@ void main() {
               home: Scaffold(
                 body: ListView(
                   children: sampleCourses
-                      .map((course) =>
-                          CourseTile(course, sampleCoursesProgresses))
+                      .map(
+                        (course) => CourseTile(course, sampleCoursesProgresses),
+                      )
                       .toList(),
                 ),
               ),
@@ -78,7 +79,8 @@ void main() {
           await expectLater(
             find.byType(Scaffold),
             matchesGoldenFile(
-                'golden/course-tiles-${theme.key}-${device.name.toLowerCase()}.jpg'),
+              'golden/course-tiles-${theme.key}-${device.name.toLowerCase()}.jpg',
+            ),
           );
         },
       );
