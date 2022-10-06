@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutters_tips_and_tricks/courses/course_details.page.dart';
+import 'package:flutters_tips_and_tricks/courses/courses.model.dart';
 import 'package:flutters_tips_and_tricks/main.dart';
-import 'package:flutters_tips_and_tricks/models/courses.model.dart';
-import 'package:flutters_tips_and_tricks/pages/course_details.page.dart';
-import 'package:flutters_tips_and_tricks/pages/settings_modal.dart';
+import 'package:flutters_tips_and_tricks/settings/settings_modal.dart';
 
 class CoursesPage extends ConsumerWidget {
-  const CoursesPage({Key? key}) : super(key: key);
+  const CoursesPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -84,8 +84,8 @@ class CourseTile extends ConsumerWidget {
   const CourseTile(
     this.course,
     this.progresses, {
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

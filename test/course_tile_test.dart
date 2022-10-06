@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutters_tips_and_tricks/models/courses.model.dart';
-import 'package:flutters_tips_and_tricks/pages/courses.page.dart';
+import 'package:flutters_tips_and_tricks/courses/courses.model.dart';
+import 'package:flutters_tips_and_tricks/courses/courses.page.dart';
 
 import 'test_utils.dart';
 

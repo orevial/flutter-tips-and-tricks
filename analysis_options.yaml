@@ -178,7 +178,7 @@ linter:
     avoid_returning_this: true
 
     # https://dart-lang.github.io/linter/lints/flutter_style_todos.html
-    flutter_style_todos: true
+    flutter_style_todos: false
 
     # https://dart-lang.github.io/linter/lints/prefer_asserts_with_message.html
     prefer_asserts_with_message: true

@@ -2,10 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutters_tips_and_tricks/models/courses.model.dart';
-import 'package:flutters_tips_and_tricks/pages/courses.page.dart';
-import 'package:flutters_tips_and_tricks/pages/settings_modal.dart';
-import 'package:flutters_tips_and_tricks/state/course_progress.dart';
+import 'package:flutters_tips_and_tricks/courses/course_progress.model.dart';
+import 'package:flutters_tips_and_tricks/courses/courses.model.dart';
+import 'package:flutters_tips_and_tricks/courses/courses.page.dart';
+import 'package:flutters_tips_and_tricks/settings/settings_modal.dart';
 import 'package:flutters_tips_and_tricks/utils/theme.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -29,7 +29,7 @@ final coursesProgressProvider =
         .where((key) => key.startsWith('course_'))
         .map(
           (key) => UserProgress.fromJson(
-            jsonDecode(prefs.getString(key)!) as Map<String, Object>,
+            jsonDecode(prefs.getString(key)!) as Map<String, dynamic>,
           ),
         )
         .toList();
@@ -42,7 +42,7 @@ final coursesProvider = FutureProvider((_) async {
       .get(Uri.parse(coursesSnippetUrl))
       .then((response) => response.body)
       .then((data) => jsonDecode(data))
-      .then((json) => CourseResponse.fromJson(json as Map<String, Object>));
+      .then((json) => CourseResponse.fromJson(json as Map<String, dynamic>));
 });
 
 void main() async {
@@ -58,7 +58,7 @@ void main() async {
 }
 
 class MyApp extends ConsumerWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

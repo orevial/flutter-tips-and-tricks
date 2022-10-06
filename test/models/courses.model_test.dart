@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutters_tips_and_tricks/models/courses.model.dart';
+import 'package:flutters_tips_and_tricks/courses/courses.model.dart';
 
 import '../test_utils.dart';
 
 class TestWidget extends StatelessWidget {
-  const TestWidget({Key? key}) : super(key: key);
+  const TestWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

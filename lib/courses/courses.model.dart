@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'courses.model.g.dart';
-
 part 'courses.model.freezed.dart';
+part 'courses.model.g.dart';
 
 @freezed
 class CourseResponse with _$CourseResponse {

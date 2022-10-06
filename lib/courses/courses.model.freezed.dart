@@ -12,29 +12,11 @@ part of 'courses.model.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 CourseResponse _$CourseResponseFromJson(Map<String, dynamic> json) {
   return _CourseResponse.fromJson(json);
 }
-
-/// @nodoc
-class _$CourseResponseTearOff {
-  const _$CourseResponseTearOff();
-
-  _CourseResponse call({required List<Course> courses}) {
-    return _CourseResponse(
-      courses: courses,
-    );
-  }
-
-  CourseResponse fromJson(Map<String, Object?> json) {
-    return CourseResponse.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $CourseResponse = _$CourseResponseTearOff();
 
 /// @nodoc
 mixin _$CourseResponse {
@@ -77,33 +59,33 @@ class _$CourseResponseCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$CourseResponseCopyWith<$Res>
+abstract class _$$_CourseResponseCopyWith<$Res>
     implements $CourseResponseCopyWith<$Res> {
-  factory _$CourseResponseCopyWith(
-          _CourseResponse value, $Res Function(_CourseResponse) then) =
-      __$CourseResponseCopyWithImpl<$Res>;
+  factory _$$_CourseResponseCopyWith(
+          _$_CourseResponse value, $Res Function(_$_CourseResponse) then) =
+      __$$_CourseResponseCopyWithImpl<$Res>;
   @override
   $Res call({List<Course> courses});
 }
 
 /// @nodoc
-class __$CourseResponseCopyWithImpl<$Res>
+class __$$_CourseResponseCopyWithImpl<$Res>
     extends _$CourseResponseCopyWithImpl<$Res>
-    implements _$CourseResponseCopyWith<$Res> {
-  __$CourseResponseCopyWithImpl(
-      _CourseResponse _value, $Res Function(_CourseResponse) _then)
-      : super(_value, (v) => _then(v as _CourseResponse));
+    implements _$$_CourseResponseCopyWith<$Res> {
+  __$$_CourseResponseCopyWithImpl(
+      _$_CourseResponse _value, $Res Function(_$_CourseResponse) _then)
+      : super(_value, (v) => _then(v as _$_CourseResponse));
 
   @override
-  _CourseResponse get _value => super._value as _CourseResponse;
+  _$_CourseResponse get _value => super._value as _$_CourseResponse;
 
   @override
   $Res call({
     Object? courses = freezed,
   }) {
-    return _then(_CourseResponse(
+    return _then(_$_CourseResponse(
       courses: courses == freezed
-          ? _value.courses
+          ? _value._courses
           : courses // ignore: cast_nullable_to_non_nullable
               as List<Course>,
     ));
@@ -113,13 +95,18 @@ class __$CourseResponseCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_CourseResponse implements _CourseResponse {
-  const _$_CourseResponse({required this.courses});
+  const _$_CourseResponse({required final List<Course> courses})
+      : _courses = courses;
 
   factory _$_CourseResponse.fromJson(Map<String, dynamic> json) =>
       _$$_CourseResponseFromJson(json);
 
+  final List<Course> _courses;
   @override
-  final List<Course> courses;
+  List<Course> get courses {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_courses);
+  }
 
   @override
   String toString() {
@@ -130,27 +117,30 @@ class _$_CourseResponse implements _CourseResponse {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _CourseResponse &&
-            const DeepCollectionEquality().equals(other.courses, courses));
+            other is _$_CourseResponse &&
+            const DeepCollectionEquality().equals(other._courses, _courses));
   }
-
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(courses));
 
   @JsonKey(ignore: true)
   @override
-  _$CourseResponseCopyWith<_CourseResponse> get copyWith =>
-      __$CourseResponseCopyWithImpl<_CourseResponse>(this, _$identity);
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_courses));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$_CourseResponseCopyWith<_$_CourseResponse> get copyWith =>
+      __$$_CourseResponseCopyWithImpl<_$_CourseResponse>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_CourseResponseToJson(this);
+    return _$$_CourseResponseToJson(
+      this,
+    );
   }
 }
 
 abstract class _CourseResponse implements CourseResponse {
-  const factory _CourseResponse({required List<Course> courses}) =
+  const factory _CourseResponse({required final List<Course> courses}) =
       _$_CourseResponse;
 
   factory _CourseResponse.fromJson(Map<String, dynamic> json) =
@@ -160,36 +150,13 @@ abstract class _CourseResponse implements CourseResponse {
   List<Course> get courses;
   @override
   @JsonKey(ignore: true)
-  _$CourseResponseCopyWith<_CourseResponse> get copyWith =>
+  _$$_CourseResponseCopyWith<_$_CourseResponse> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 Course _$CourseFromJson(Map<String, dynamic> json) {
   return _Course.fromJson(json);
 }
-
-/// @nodoc
-class _$CourseTearOff {
-  const _$CourseTearOff();
-
-  _Course call(
-      {required String id,
-      required String name,
-      required List<CoursePage> pages}) {
-    return _Course(
-      id: id,
-      name: name,
-      pages: pages,
-    );
-  }
-
-  Course fromJson(Map<String, Object?> json) {
-    return Course.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $Course = _$CourseTearOff();
 
 /// @nodoc
 mixin _$Course {
@@ -241,21 +208,21 @@ class _$CourseCopyWithImpl<$Res> implements $CourseCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$CourseCopyWith<$Res> implements $CourseCopyWith<$Res> {
-  factory _$CourseCopyWith(_Course value, $Res Function(_Course) then) =
-      __$CourseCopyWithImpl<$Res>;
+abstract class _$$_CourseCopyWith<$Res> implements $CourseCopyWith<$Res> {
+  factory _$$_CourseCopyWith(_$_Course value, $Res Function(_$_Course) then) =
+      __$$_CourseCopyWithImpl<$Res>;
   @override
   $Res call({String id, String name, List<CoursePage> pages});
 }
 
 /// @nodoc
-class __$CourseCopyWithImpl<$Res> extends _$CourseCopyWithImpl<$Res>
-    implements _$CourseCopyWith<$Res> {
-  __$CourseCopyWithImpl(_Course _value, $Res Function(_Course) _then)
-      : super(_value, (v) => _then(v as _Course));
+class __$$_CourseCopyWithImpl<$Res> extends _$CourseCopyWithImpl<$Res>
+    implements _$$_CourseCopyWith<$Res> {
+  __$$_CourseCopyWithImpl(_$_Course _value, $Res Function(_$_Course) _then)
+      : super(_value, (v) => _then(v as _$_Course));
 
   @override
-  _Course get _value => super._value as _Course;
+  _$_Course get _value => super._value as _$_Course;
 
   @override
   $Res call({
@@ -263,7 +230,7 @@ class __$CourseCopyWithImpl<$Res> extends _$CourseCopyWithImpl<$Res>
     Object? name = freezed,
     Object? pages = freezed,
   }) {
-    return _then(_Course(
+    return _then(_$_Course(
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -273,7 +240,7 @@ class __$CourseCopyWithImpl<$Res> extends _$CourseCopyWithImpl<$Res>
           : name // ignore: cast_nullable_to_non_nullable
               as String,
       pages: pages == freezed
-          ? _value.pages
+          ? _value._pages
           : pages // ignore: cast_nullable_to_non_nullable
               as List<CoursePage>,
     ));
@@ -283,7 +250,11 @@ class __$CourseCopyWithImpl<$Res> extends _$CourseCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_Course implements _Course {
-  const _$_Course({required this.id, required this.name, required this.pages});
+  const _$_Course(
+      {required this.id,
+      required this.name,
+      required final List<CoursePage> pages})
+      : _pages = pages;
 
   factory _$_Course.fromJson(Map<String, dynamic> json) =>
       _$$_CourseFromJson(json);
@@ -292,8 +263,12 @@ class _$_Course implements _Course {
   final String id;
   @override
   final String name;
+  final List<CoursePage> _pages;
   @override
-  final List<CoursePage> pages;
+  List<CoursePage> get pages {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_pages);
+  }
 
   @override
   String toString() {
@@ -304,35 +279,38 @@ class _$_Course implements _Course {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _Course &&
+            other is _$_Course &&
             const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.pages, pages));
+            const DeepCollectionEquality().equals(other._pages, _pages));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(id),
       const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(pages));
+      const DeepCollectionEquality().hash(_pages));
 
   @JsonKey(ignore: true)
   @override
-  _$CourseCopyWith<_Course> get copyWith =>
-      __$CourseCopyWithImpl<_Course>(this, _$identity);
+  _$$_CourseCopyWith<_$_Course> get copyWith =>
+      __$$_CourseCopyWithImpl<_$_Course>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_CourseToJson(this);
+    return _$$_CourseToJson(
+      this,
+    );
   }
 }
 
 abstract class _Course implements Course {
   const factory _Course(
-      {required String id,
-      required String name,
-      required List<CoursePage> pages}) = _$_Course;
+      {required final String id,
+      required final String name,
+      required final List<CoursePage> pages}) = _$_Course;
 
   factory _Course.fromJson(Map<String, dynamic> json) = _$_Course.fromJson;
 
@@ -344,31 +322,13 @@ abstract class _Course implements Course {
   List<CoursePage> get pages;
   @override
   @JsonKey(ignore: true)
-  _$CourseCopyWith<_Course> get copyWith => throw _privateConstructorUsedError;
+  _$$_CourseCopyWith<_$_Course> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 CoursePage _$CoursePageFromJson(Map<String, dynamic> json) {
   return _CoursePage.fromJson(json);
 }
-
-/// @nodoc
-class _$CoursePageTearOff {
-  const _$CoursePageTearOff();
-
-  _CoursePage call({required String name, required String content}) {
-    return _CoursePage(
-      name: name,
-      content: content,
-    );
-  }
-
-  CoursePage fromJson(Map<String, Object?> json) {
-    return CoursePage.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $CoursePage = _$CoursePageTearOff();
 
 /// @nodoc
 mixin _$CoursePage {
@@ -416,30 +376,31 @@ class _$CoursePageCopyWithImpl<$Res> implements $CoursePageCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$CoursePageCopyWith<$Res> implements $CoursePageCopyWith<$Res> {
-  factory _$CoursePageCopyWith(
-          _CoursePage value, $Res Function(_CoursePage) then) =
-      __$CoursePageCopyWithImpl<$Res>;
+abstract class _$$_CoursePageCopyWith<$Res>
+    implements $CoursePageCopyWith<$Res> {
+  factory _$$_CoursePageCopyWith(
+          _$_CoursePage value, $Res Function(_$_CoursePage) then) =
+      __$$_CoursePageCopyWithImpl<$Res>;
   @override
   $Res call({String name, String content});
 }
 
 /// @nodoc
-class __$CoursePageCopyWithImpl<$Res> extends _$CoursePageCopyWithImpl<$Res>
-    implements _$CoursePageCopyWith<$Res> {
-  __$CoursePageCopyWithImpl(
-      _CoursePage _value, $Res Function(_CoursePage) _then)
-      : super(_value, (v) => _then(v as _CoursePage));
+class __$$_CoursePageCopyWithImpl<$Res> extends _$CoursePageCopyWithImpl<$Res>
+    implements _$$_CoursePageCopyWith<$Res> {
+  __$$_CoursePageCopyWithImpl(
+      _$_CoursePage _value, $Res Function(_$_CoursePage) _then)
+      : super(_value, (v) => _then(v as _$_CoursePage));
 
   @override
-  _CoursePage get _value => super._value as _CoursePage;
+  _$_CoursePage get _value => super._value as _$_CoursePage;
 
   @override
   $Res call({
     Object? name = freezed,
     Object? content = freezed,
   }) {
-    return _then(_CoursePage(
+    return _then(_$_CoursePage(
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -474,11 +435,12 @@ class _$_CoursePage implements _CoursePage {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _CoursePage &&
+            other is _$_CoursePage &&
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality().equals(other.content, content));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -487,18 +449,21 @@ class _$_CoursePage implements _CoursePage {
 
   @JsonKey(ignore: true)
   @override
-  _$CoursePageCopyWith<_CoursePage> get copyWith =>
-      __$CoursePageCopyWithImpl<_CoursePage>(this, _$identity);
+  _$$_CoursePageCopyWith<_$_CoursePage> get copyWith =>
+      __$$_CoursePageCopyWithImpl<_$_CoursePage>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_CoursePageToJson(this);
+    return _$$_CoursePageToJson(
+      this,
+    );
   }
 }
 
 abstract class _CoursePage implements CoursePage {
-  const factory _CoursePage({required String name, required String content}) =
-      _$_CoursePage;
+  const factory _CoursePage(
+      {required final String name,
+      required final String content}) = _$_CoursePage;
 
   factory _CoursePage.fromJson(Map<String, dynamic> json) =
       _$_CoursePage.fromJson;
@@ -509,36 +474,13 @@ abstract class _CoursePage implements CoursePage {
   String get content;
   @override
   @JsonKey(ignore: true)
-  _$CoursePageCopyWith<_CoursePage> get copyWith =>
+  _$$_CoursePageCopyWith<_$_CoursePage> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 UserProgress _$UserProgressFromJson(Map<String, dynamic> json) {
   return _UserProgress.fromJson(json);
 }
-
-/// @nodoc
-class _$UserProgressTearOff {
-  const _$UserProgressTearOff();
-
-  _UserProgress call(
-      {required String courseId,
-      required int currentPage,
-      required bool isOver}) {
-    return _UserProgress(
-      courseId: courseId,
-      currentPage: currentPage,
-      isOver: isOver,
-    );
-  }
-
-  UserProgress fromJson(Map<String, Object?> json) {
-    return UserProgress.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $UserProgress = _$UserProgressTearOff();
 
 /// @nodoc
 mixin _$UserProgress {
@@ -592,24 +534,25 @@ class _$UserProgressCopyWithImpl<$Res> implements $UserProgressCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$UserProgressCopyWith<$Res>
+abstract class _$$_UserProgressCopyWith<$Res>
     implements $UserProgressCopyWith<$Res> {
-  factory _$UserProgressCopyWith(
-          _UserProgress value, $Res Function(_UserProgress) then) =
-      __$UserProgressCopyWithImpl<$Res>;
+  factory _$$_UserProgressCopyWith(
+          _$_UserProgress value, $Res Function(_$_UserProgress) then) =
+      __$$_UserProgressCopyWithImpl<$Res>;
   @override
   $Res call({String courseId, int currentPage, bool isOver});
 }
 
 /// @nodoc
-class __$UserProgressCopyWithImpl<$Res> extends _$UserProgressCopyWithImpl<$Res>
-    implements _$UserProgressCopyWith<$Res> {
-  __$UserProgressCopyWithImpl(
-      _UserProgress _value, $Res Function(_UserProgress) _then)
-      : super(_value, (v) => _then(v as _UserProgress));
+class __$$_UserProgressCopyWithImpl<$Res>
+    extends _$UserProgressCopyWithImpl<$Res>
+    implements _$$_UserProgressCopyWith<$Res> {
+  __$$_UserProgressCopyWithImpl(
+      _$_UserProgress _value, $Res Function(_$_UserProgress) _then)
+      : super(_value, (v) => _then(v as _$_UserProgress));
 
   @override
-  _UserProgress get _value => super._value as _UserProgress;
+  _$_UserProgress get _value => super._value as _$_UserProgress;
 
   @override
   $Res call({
@@ -617,7 +560,7 @@ class __$UserProgressCopyWithImpl<$Res> extends _$UserProgressCopyWithImpl<$Res>
     Object? currentPage = freezed,
     Object? isOver = freezed,
   }) {
-    return _then(_UserProgress(
+    return _then(_$_UserProgress(
       courseId: courseId == freezed
           ? _value.courseId
           : courseId // ignore: cast_nullable_to_non_nullable
@@ -660,13 +603,14 @@ class _$_UserProgress extends _UserProgress {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _UserProgress &&
+            other is _$_UserProgress &&
             const DeepCollectionEquality().equals(other.courseId, courseId) &&
             const DeepCollectionEquality()
                 .equals(other.currentPage, currentPage) &&
             const DeepCollectionEquality().equals(other.isOver, isOver));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -676,20 +620,22 @@ class _$_UserProgress extends _UserProgress {
 
   @JsonKey(ignore: true)
   @override
-  _$UserProgressCopyWith<_UserProgress> get copyWith =>
-      __$UserProgressCopyWithImpl<_UserProgress>(this, _$identity);
+  _$$_UserProgressCopyWith<_$_UserProgress> get copyWith =>
+      __$$_UserProgressCopyWithImpl<_$_UserProgress>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_UserProgressToJson(this);
+    return _$$_UserProgressToJson(
+      this,
+    );
   }
 }
 
 abstract class _UserProgress extends UserProgress {
   const factory _UserProgress(
-      {required String courseId,
-      required int currentPage,
-      required bool isOver}) = _$_UserProgress;
+      {required final String courseId,
+      required final int currentPage,
+      required final bool isOver}) = _$_UserProgress;
   const _UserProgress._() : super._();
 
   factory _UserProgress.fromJson(Map<String, dynamic> json) =
@@ -703,6 +649,6 @@ abstract class _UserProgress extends UserProgress {
   bool get isOver;
   @override
   @JsonKey(ignore: true)
-  _$UserProgressCopyWith<_UserProgress> get copyWith =>
+  _$$_UserProgressCopyWith<_$_UserProgress> get copyWith =>
       throw _privateConstructorUsedError;
 }
