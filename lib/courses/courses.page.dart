@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutters_tips_and_tricks/courses/course_details.page.dart';
 import 'package:flutters_tips_and_tricks/courses/courses.model.dart';
+import 'package:flutters_tips_and_tricks/courses/courses.state.dart';
 import 'package:flutters_tips_and_tricks/main.dart';
 import 'package:flutters_tips_and_tricks/settings/settings_modal.dart';
+import 'package:flutters_tips_and_tricks/utils/theme.state.dart';
 
 class CoursesPage extends ConsumerWidget {
   const CoursesPage({super.key});

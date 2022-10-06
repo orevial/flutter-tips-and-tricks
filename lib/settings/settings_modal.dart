@@ -24,13 +24,6 @@ extension _ThemeModeUtils on ThemeMode {
   }
 }
 
-ThemeMode themeModeFromString(String? value) {
-  return ThemeMode.values.firstWhere(
-    (mode) => mode.name == value,
-    orElse: () => ThemeMode.system,
-  );
-}
-
 class SettingsModal extends StatelessWidget {
   const SettingsModal({super.key});
 
