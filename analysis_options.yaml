@@ -189,7 +189,10 @@ linter:
     # https://dart-lang.github.io/linter/lints/use_to_and_as_if_applicable.html
     use_to_and_as_if_applicable: true
 
-    # Does not add much to sort dependencies, sometimes it's less readable
+    # "Any sorting is better than no sorting"... probably but it's also a lot of work
+    # for little added value on pub dependencies. Sometimes it's even less readable
+    # because logical groups can be made with packages that might now follow each other
+    # in the alphabetical order
     # https://dart-lang.github.io/linter/lints/sort_pub_dependencies.html
     sort_pub_dependencies: false
 
