@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class TestWidgetSample extends StatelessWidget {
-  const TestWidgetSample({Key? key}) : super(key: key);
+  const TestWidgetSample({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class TestWidgetSample extends StatelessWidget {
 }
 
 class TestWidgetForInlineIf extends StatelessWidget {
-  const TestWidgetForInlineIf({Key? key}) : super(key: key);
+  const TestWidgetForInlineIf({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +35,7 @@ class TestWidgetForInlineIf extends StatelessWidget {
 }
 
 class TestWidgetForInlineFor extends StatelessWidget {
-  const TestWidgetForInlineFor({Key? key}) : super(key: key);
+  const TestWidgetForInlineFor({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +51,7 @@ class TestWidgetForInlineFor extends StatelessWidget {
 }
 
 class TestWidgetForSpreadOperator extends StatelessWidget {
-  const TestWidgetForSpreadOperator({Key? key}) : super(key: key);
+  const TestWidgetForSpreadOperator({super.key});
 
   @override
   Widget build(BuildContext context) {

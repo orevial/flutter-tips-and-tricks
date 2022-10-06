@@ -5,6 +5,10 @@
 // Original theme can be found here:
 // https://github.com/flutter/gallery/blob/master/lib/themes/gallery_theme_data.dart
 
+// TODO Update(*) to more recent theming
+// Let's not care about deprecated theme variables right now...
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 
 const _lightFillColor = Colors.black;

@@ -14,8 +14,8 @@ class CourseDetailsPage extends ConsumerStatefulWidget {
     // chacun des paramètres
     required this.course,
     required this.initialPage,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   _CourseDetailsPageState createState() => _CourseDetailsPageState();

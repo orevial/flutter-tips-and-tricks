@@ -5,7 +5,7 @@ import 'package:flutters_tips_and_tricks/models/courses.model.dart';
 import '../test_utils.dart';
 
 class TestWidget extends StatelessWidget {
-  const TestWidget({Key? key}) : super(key: key);
+  const TestWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

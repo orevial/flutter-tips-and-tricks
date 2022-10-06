@@ -32,7 +32,7 @@ ThemeMode themeModeFromString(String? value) {
 }
 
 class SettingsModal extends StatelessWidget {
-  const SettingsModal({Key? key}) : super(key: key);
+  const SettingsModal({super.key});
 
   @override
   Widget build(BuildContext context) {
