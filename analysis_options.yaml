@@ -94,7 +94,7 @@ dart_code_metrics:
     - avoid-dynamic
     - avoid-global-state
     - no-magic-number
-
+    - missing-test-assertion
     ########################################################################
     ##            DART CODE METRICS PLUGIN: DISABLED RULES                ##
     ##                                                                    ##

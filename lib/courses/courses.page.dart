@@ -105,7 +105,7 @@ class CourseTile extends ConsumerWidget {
     final initialPage = courseProgress.isOver ? 0 : courseProgress.currentPage;
     final IconData icon = courseProgress.icon(course.pages.length);
 
-    Widget _tile() {
+    Widget tile() {
       return ListTile(
         trailing: Container(
           decoration: BoxDecoration(
@@ -125,7 +125,7 @@ class CourseTile extends ConsumerWidget {
       );
     }
 
-    Widget _progressBar() {
+    Widget progressBar() {
       return Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -168,8 +168,8 @@ class CourseTile extends ConsumerWidget {
         margin: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            _tile(),
-            _progressBar(),
+            tile(),
+            progressBar(),
           ],
         ),
       ),

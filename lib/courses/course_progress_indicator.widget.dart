@@ -71,7 +71,7 @@ Widget buildPageIndicator({
   required int totalPages,
   required Color primaryColor,
 }) {
-  Widget _indicator({
+  Widget indicator({
     required bool isActive,
     required bool isViewed,
   }) {
@@ -105,7 +105,7 @@ Widget buildPageIndicator({
     children: List.generate(
       totalPages,
       (i) {
-        return _indicator(
+        return indicator(
           isActive: i == currentPage,
           isViewed: i < currentPage,
         );
