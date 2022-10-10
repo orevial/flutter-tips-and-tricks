@@ -11,10 +11,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  bloc: ^8.1.0
   cupertino_icons: ^1.0.5
   file: ^6.1.2
+  flutter_bloc: 8.1.1
   platform: ^3.1.0
-  flutter_riverpod: ^2.0.2
   shared_preferences: ^2.0.15
   equatable: ^2.0.5
   json_annotation: ^4.7.0
@@ -26,18 +27,16 @@ dev_dependencies:
     sdk: flutter
   integration_test:
     sdk: flutter
-  #  dart_code_metrics: ^4.14.0
-  # We use 'lint' package rather than default 'flutter_lints' package because it is more
-  # restrictive which is considered a good thing as it allows for stronger and more coherent
-  # coding practice in a team. This package implements around 75% of linter rules
-  # versus only 45% for flutter_lints
-  # See this article for more info: https://rydmike.com/blog_flutter_linting.html
+  bloc_test: ^9.1.0
   lint: ^1.10.0
   mockito: ^5.3.2
   build_runner: ^2.2.1
   freezed: ^2.1.1
   json_serializable: ^6.4.1
-  dart_code_metrics: ^4.20.0
+  dart_code_metrics: ^4.21.0
+
+dependency_overrides:
+  analyzer: ^5.1.0
 
 flutter:
   uses-material-design: true

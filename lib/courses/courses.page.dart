@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutters_tips_and_tricks/courses/bloc/course_list_bloc.dart';
+import 'package:flutters_tips_and_tricks/courses/bloc/course_progress_bloc.dart';
 import 'package:flutters_tips_and_tricks/courses/course_details.page.dart';
 import 'package:flutters_tips_and_tricks/courses/courses.model.dart';
-import 'package:flutters_tips_and_tricks/courses/courses.state.dart';
-import 'package:flutters_tips_and_tricks/main.dart';
 import 'package:flutters_tips_and_tricks/settings/settings_modal.dart';
-import 'package:flutters_tips_and_tricks/utils/theme.state.dart';
+import 'package:flutters_tips_and_tricks/theme/bloc/theme_bloc.dart';
+import 'package:flutters_tips_and_tricks/widgets/page_content_error.widget.dart';
+import 'package:flutters_tips_and_tricks/widgets/page_content_loading.widget.dart';
 
-class CoursesPage extends ConsumerWidget {
+class CoursesPage extends StatelessWidget {
   const CoursesPage({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     // Utilisation de notre donnée locale (mockée)
     return Scaffold(
       appBar: AppBar(
@@ -22,7 +24,6 @@ class CoursesPage extends ConsumerWidget {
             SizedBox(
               width: 10,
             ),
-            // ℹ️ 👁‍🗨 TIP: Toujours rajouter une virgule après le dernier élément d'une liste de widgets pour aider le formattage de dartfm !
             Text('Flutter courses'),
           ],
         ),
@@ -35,70 +36,69 @@ class CoursesPage extends ConsumerWidget {
                 builder: (context) => const SettingsModal(),
               ) as ThemeMode?;
               if (newTheme != null) {
-                ref.read(themeProvider.state).state = newTheme;
-                await ref
-                    .read(prefsProvider)
-                    .setString('theme_mode', newTheme.name);
+                context.read<ThemeBloc>().add(ThemeEvent.update(newTheme));
               }
             },
           ),
         ],
       ),
-      body: _buildContent(context, ref),
+      body: BlocBuilder<CourseListBloc, CourseListState>(
+        builder: (context, state) => state.map(
+          initial: (state) => const SizedBox(),
+          loading: (state) => const PageContentLoading(),
+          content: (state) => _CourseListContent(state.courses),
+          error: (state) => PageContentError(
+            onRetry: () => context
+                .read<CourseListBloc>()
+                .add(const CourseListEvent.retry()),
+          ),
+        ),
+      ),
     );
   }
 }
 
-Widget _buildContent(
-  BuildContext context,
-  WidgetRef ref,
-) {
-  final AsyncValue<CourseResponse> courses = ref.watch(coursesProvider);
-  final progresses = ref.watch(coursesProgressProvider);
+class _CourseListContent extends StatelessWidget {
+  final CourseResponse courses;
 
-  return courses.when(
-    data: (data) {
-      return ListView(
-        children: [
-          for (Course course in data.courses)
-            if (course.id != 'do_not_put_there')
-              CourseTile(
-                course,
-                progresses,
-              ),
-        ],
-      );
-    },
-    error: (e, __) => Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Text('Err: $e'),
-    ),
-    loading: () => const Center(
-      child: CircularProgressIndicator(),
-    ),
-  );
-}
-
-class CourseTile extends ConsumerWidget {
-  final Course course;
-  final List<UserProgress> progresses;
-
-  const CourseTile(
-    this.course,
-    this.progresses, {
-    super.key,
-  });
+  const _CourseListContent(this.courses);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final courseProgress = progresses.firstWhere(
-      (p) => p.courseId == course.id,
-      orElse: () => UserProgress(
-        courseId: course.id,
-        currentPage: 0,
-        isOver: false,
-      ),
+  Widget build(BuildContext context) {
+    return BlocBuilder<CourseProgressBloc, CourseProgressState>(
+      builder: (context, state) {
+        final progresses = state.maybeMap(
+          content: (content) => content.userProgresses,
+          orElse: () => <UserProgress>[],
+        );
+        return ListView(
+          children: [
+            for (Course course in courses.courses)
+              if (course.id != 'do_not_put_there')
+                CourseTile(
+                  course,
+                  progresses,
+                ),
+          ],
+        );
+      },
     );
+  }
+}
+
+class CourseTile extends StatelessWidget {
+  final Course course;
+  final List<UserProgress>? progresses;
+
+  const CourseTile(this.course, this.progresses);
+
+  @override
+  Widget build(BuildContext context) {
+    final courseProgress = progresses?.firstWhere(
+          (p) => p.courseId == course.id,
+          orElse: () => UserProgress.defaultProgress(course.id),
+        ) ??
+        UserProgress.defaultProgress(course.id);
 
     final double progressPercentage =
         courseProgress.progressPercentage(course.pages.length);
@@ -149,10 +149,12 @@ class CourseTile extends ConsumerWidget {
     return InkWell(
       onTap: () {
         if (courseProgress.isOver) {
-          ref.read(coursesProgressProvider.notifier).updateCourseProgress(
-                course.id,
-                initialPage,
-                isOver: false,
+          context.read<CourseProgressBloc>().add(
+                CourseProgressEvent.updateProgress(
+                  course.id,
+                  initialPage,
+                  isOver: false,
+                ),
               );
         }
         Navigator.of(context).push(

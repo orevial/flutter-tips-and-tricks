@@ -29,6 +29,7 @@ analyzer:
   # Exclude auto-generated files from dart analysis
   exclude:
     - "**.g.dart"
+    - "**.freezed.dart"
     - test/**.mocks.dart
 
 

@@ -2,7 +2,7 @@ import 'package:file/file.dart';
 import 'package:file/local.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutters_tips_and_tricks/utils/theme.dart';
+import 'package:flutters_tips_and_tricks/theme/theme.dart';
 import 'package:platform/platform.dart';
 
 class Device {

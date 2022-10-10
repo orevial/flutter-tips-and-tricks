@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutters_tips_and_tricks/courses/bloc/course_progress_bloc.dart';
 import 'package:flutters_tips_and_tricks/courses/course_progress_indicator.widget.dart';
 import 'package:flutters_tips_and_tricks/courses/courses.model.dart';
-import 'package:flutters_tips_and_tricks/courses/courses.state.dart';
 
-class CourseDetailsPage extends ConsumerStatefulWidget {
+class CourseDetailsPage extends StatefulWidget {
   final Course course;
   final int initialPage;
 
   const CourseDetailsPage({
-    // ℹ️ 👁‍🗨 Ici on utilise des arguments nommés plutôt que de simples "positional arguments"
-    // parce que sinon il ne serait pas clair pour l'appelant à quoi correspond
-    // chacun des paramètres
     required this.course,
     required this.initialPage,
     super.key,
@@ -21,12 +18,9 @@ class CourseDetailsPage extends ConsumerStatefulWidget {
   _CourseDetailsPageState createState() => _CourseDetailsPageState();
 }
 
-class _CourseDetailsPageState extends ConsumerState<CourseDetailsPage> {
+class _CourseDetailsPageState extends State<CourseDetailsPage> {
   late final _pageController = PageController(initialPage: widget.initialPage);
 
-  // ℹ️ 👁‍🗨 On utilise un "getter" Dart, c'est à dire qu'on déclare une propriété
-  // qui ne peut pas être mutée et à laquelle on peut accéder comme n'importe quelle propriété,
-  // c'est à dire `currentPage` au lieu d'une méthode `currentPage()`
   int get currentPage => _pageController.hasClients
       ? _pageController.page!.round()
       : widget.initialPage;
@@ -46,7 +40,6 @@ class _CourseDetailsPageState extends ConsumerState<CourseDetailsPage> {
         padding: const EdgeInsets.all(16.0),
         child: widget.course.pages.isNotEmpty
             ? _courseContent()
-            // ℹ️ 👁‍🗨 Pensez aux cas d'erreur ! Qu'arrive-t'il si on essaye d'affiche un cours qui n'a pas de page ?
             : const Center(
                 child: Text('Sorry, this course is yet to be created...'),
               ),
@@ -55,10 +48,12 @@ class _CourseDetailsPageState extends ConsumerState<CourseDetailsPage> {
           ? FloatingActionButton(
               key: const Key('terminate-course-fab'),
               onPressed: () {
-                ref.read(coursesProgressProvider.notifier).updateCourseProgress(
-                      widget.course.id,
-                      currentPage,
-                      isOver: true,
+                context.read<CourseProgressBloc>().add(
+                      CourseProgressEvent.updateProgress(
+                        widget.course.id,
+                        currentPage,
+                        isOver: true,
+                      ),
                     );
                 Navigator.of(context).pop();
               },
@@ -82,15 +77,15 @@ class _CourseDetailsPageState extends ConsumerState<CourseDetailsPage> {
             controller: _pageController,
             onPageChanged: (_) {
               setState(() {
-                ref.read(coursesProgressProvider.notifier).updateCourseProgress(
-                      widget.course.id,
-                      currentPage,
-                      isOver: false,
+                context.read<CourseProgressBloc>().add(
+                      CourseProgressEvent.updateProgress(
+                        widget.course.id,
+                        currentPage,
+                        isOver: false,
+                      ),
                     );
               });
             },
-            // ℹ️ 👁‍🗨 Une autre manière d'utiliser une liste plus axée "programmation fonctionnelle"...
-            // Utilisez la manière que vous préférez !
             children: widget.course.pages.map(_coursePageContent).toList(),
           ),
         ),

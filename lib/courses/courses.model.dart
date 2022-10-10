@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'courses.model.freezed.dart';
+
 part 'courses.model.g.dart';
 
 @freezed
@@ -47,6 +48,12 @@ class UserProgress with _$UserProgress {
 
   factory UserProgress.fromJson(Map<String, dynamic> json) =>
       _$UserProgressFromJson(json);
+
+  factory UserProgress.defaultProgress(String courseId) => UserProgress(
+        courseId: courseId,
+        currentPage: 0,
+        isOver: false,
+      );
 
   double progressPercentage(int coursesPages) {
     if (isOver) {
