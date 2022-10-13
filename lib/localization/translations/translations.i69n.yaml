@@ -1,0 +1,15 @@
+common:
+  error: 'Something went wrong'
+  retry: 'Retry'
+
+settings:
+  mode:
+    light: 'Light'
+    dark: 'Dark'
+    system: 'System'
+
+course:
+  list:
+    title: 'Flutter courses'
+  details:
+    doesnt_exist: 'Sorry, this course is yet to be created...'

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutters_tips_and_tricks/courses/bloc/course_progress_bloc.dart';
 import 'package:flutters_tips_and_tricks/courses/course_progress_indicator.widget.dart';
 import 'package:flutters_tips_and_tricks/courses/courses.model.dart';
+import 'package:flutters_tips_and_tricks/localization/build_context_extension.dart';
 
 class CourseDetailsPage extends StatefulWidget {
   final Course course;
@@ -40,8 +41,8 @@ class _CourseDetailsPageState extends State<CourseDetailsPage> {
         padding: const EdgeInsets.all(16.0),
         child: widget.course.pages.isNotEmpty
             ? _courseContent()
-            : const Center(
-                child: Text('Sorry, this course is yet to be created...'),
+            : Center(
+                child: Text(context.translations.course.details.doesnt_exist),
               ),
       ),
       floatingActionButton: isLastPage

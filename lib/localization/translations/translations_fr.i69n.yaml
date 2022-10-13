@@ -1,0 +1,15 @@
+common:
+  error: 'Quelque chose a échoué'
+  retry: 'Réessayer'
+
+settings:
+  mode:
+    light: 'Clair'
+    dark: 'Sombre'
+    system: 'Système'
+
+course:
+  list:
+    title: 'Cours Flutter'
+  details:
+    doesnt_exist: "Désolé, ce cours n'a pas encore été créé..."

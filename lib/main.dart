@@ -6,5 +6,5 @@ void main() async {
   configureDependencies();
   WidgetsFlutterBinding.ensureInitialized();
 
-  runApp(const MyApp());
+  runApp(const FlutterTipsAndTricks());
 }

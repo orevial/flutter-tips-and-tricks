@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutters_tips_and_tricks/localization/build_context_extension.dart';
 
 class PageContentError extends StatelessWidget {
   const PageContentError({
@@ -16,9 +17,8 @@ class PageContentError extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Text(
-            // TODO I18N
-            'An error occured',
+          Text(
+            context.translations.common.error,
             textAlign: TextAlign.center,
           ),
           if (onRetry != null)
@@ -26,8 +26,7 @@ class PageContentError extends StatelessWidget {
               padding: const EdgeInsets.only(top: 16.0),
               child: ElevatedButton(
                 onPressed: onRetry,
-                // TODO I18N
-                child: const Text('Retry'),
+                child: Text(context.translations.common.retry),
               ),
             ),
         ],

@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutters_tips_and_tricks/localization/build_context_extension.dart';
 
 extension _ThemeModeUtils on ThemeMode {
-  String get text {
+  String text(BuildContext context) {
+    final tr = context.translations.settings.mode;
     switch (this) {
       case ThemeMode.light:
-        return 'Light';
+        return tr.light;
       case ThemeMode.dark:
-        return 'Dark';
+        return tr.dark;
       case ThemeMode.system:
-        return 'System';
+        return tr.system;
     }
   }
 
@@ -49,7 +51,7 @@ class SettingsModal extends StatelessWidget {
             const SizedBox(
               width: 10,
             ),
-            Text(mode.text),
+            Text(mode.text(context)),
           ],
         ),
       ),

@@ -28,8 +28,12 @@ analyzer:
     parameter_assignments: warning
   # Exclude auto-generated files from dart analysis
   exclude:
-    - "**.g.dart"
     - "**.freezed.dart"
+    - "**.g.dart"
+    - '**/*.gr.dart'
+    - '**/*.gen.dart'
+    - '**/*.i69n.dart'
+    - '**/*.config.dart'
     - test/**.mocks.dart
 
 

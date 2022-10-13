@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutters_tips_and_tricks/courses/bloc/course_list_bloc.dart';
 import 'package:flutters_tips_and_tricks/courses/bloc/course_progress_bloc.dart';
 import 'package:flutters_tips_and_tricks/courses/courses.page.dart';
 import 'package:flutters_tips_and_tricks/di/di_initializer.dart';
+import 'package:flutters_tips_and_tricks/localization/localizations.dart';
 import 'package:flutters_tips_and_tricks/theme/bloc/theme_bloc.dart';
 import 'package:flutters_tips_and_tricks/theme/theme.dart';
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class FlutterTipsAndTricks extends StatelessWidget {
+  const FlutterTipsAndTricks({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,13 @@ class MyApp extends StatelessWidget {
       ],
       child: BlocBuilder<ThemeBloc, ThemeState>(
         builder: (context, state) => MaterialApp(
-          title: 'Flutter training',
+          supportedLocales: FlutterTipsAndTricksLocalizations.supportedLocales,
+          localizationsDelegates: const [
+            GlobalMaterialLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            FlutterTipsAndTricksLocalizations.delegate,
+          ],
           themeMode: state.mode,
           theme: lightThemeData,
           darkTheme: darkThemeData,
