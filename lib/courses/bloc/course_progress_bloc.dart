@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:bloc/bloc.dart';
 import 'package:flutters_tips_and_tricks/courses/courses.model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 part 'course_progress_bloc.freezed.dart';
@@ -11,6 +12,7 @@ part 'course_progress_event.dart';
 
 part 'course_progress_state.dart';
 
+@injectable
 class CourseProgressBloc
     extends Bloc<CourseProgressEvent, CourseProgressState> {
   CourseProgressBloc() : super(const CourseProgressState.initial()) {

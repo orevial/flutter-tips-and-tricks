@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutters_tips_and_tricks/courses/courses.api.dart';
 import 'package:flutters_tips_and_tricks/courses/courses.model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:injectable/injectable.dart';
 
 part 'course_list_bloc.freezed.dart';
 
@@ -11,6 +12,7 @@ part 'course_list_event.dart';
 
 part 'course_list_state.dart';
 
+@injectable
 class CourseListBloc extends Bloc<CourseListEvent, CourseListState> {
   final CoursesApi api;
 

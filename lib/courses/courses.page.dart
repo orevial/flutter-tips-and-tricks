@@ -4,6 +4,7 @@ import 'package:flutters_tips_and_tricks/courses/bloc/course_list_bloc.dart';
 import 'package:flutters_tips_and_tricks/courses/bloc/course_progress_bloc.dart';
 import 'package:flutters_tips_and_tricks/courses/course_details.page.dart';
 import 'package:flutters_tips_and_tricks/courses/courses.model.dart';
+import 'package:flutters_tips_and_tricks/di/di_initializer.dart';
 import 'package:flutters_tips_and_tricks/settings/settings_modal.dart';
 import 'package:flutters_tips_and_tricks/theme/bloc/theme_bloc.dart';
 import 'package:flutters_tips_and_tricks/widgets/page_content_error.widget.dart';

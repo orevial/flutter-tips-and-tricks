@@ -2,10 +2,12 @@ import 'dart:convert';
 
 import 'package:flutters_tips_and_tricks/courses/courses.model.dart';
 import 'package:http/http.dart' as http;
+import 'package:injectable/injectable.dart';
 
 const coursesSnippetUrl =
     'https://gitlab.com/stack-labs/oss/flutter-tips-and-tricks/-/snippets/2233566/raw/main/courses.json';
 
+@singleton
 class CoursesApi {
   Future<CourseResponse> getCourses() {
     return http
