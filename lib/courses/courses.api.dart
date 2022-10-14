@@ -1,19 +1,19 @@
-import 'dart:convert';
-
+import 'package:dio/dio.dart';
 import 'package:flutters_tips_and_tricks/courses/courses.model.dart';
-import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
+import 'package:retrofit/retrofit.dart';
 
-const coursesSnippetUrl =
-    'https://gitlab.com/stack-labs/oss/flutter-tips-and-tricks/-/snippets/2233566/raw/main/courses.json';
+part 'courses.api.g.dart';
 
 @singleton
-class CoursesApi {
-  Future<CourseResponse> getCourses() {
-    return http
-        .get(Uri.parse(coursesSnippetUrl))
-        .then((response) => response.body)
-        .then((data) => jsonDecode(data))
-        .then((json) => CourseResponse.fromJson(json as Map<String, dynamic>));
-  }
+@RestApi()
+abstract class CoursesApi {
+  @factoryMethod
+  factory CoursesApi(
+    Dio dio, {
+    @Named('FlutterTipsAndTricksBaseUrl') String baseUrl,
+  }) = _CoursesApi;
+
+  @GET('/courses.json')
+  Future<CourseResponse> getCourses();
 }

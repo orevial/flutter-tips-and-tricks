@@ -36,7 +36,8 @@ class CourseListBloc extends Bloc<CourseListEvent, CourseListState> {
     try {
       final courses = await api.getCourses();
       emit(CourseListState.content(courses));
-    } on Exception {
+    } catch(err, st) {
+      print('Exception: $err - $st');
       emit(const CourseListState.error());
     }
   }
