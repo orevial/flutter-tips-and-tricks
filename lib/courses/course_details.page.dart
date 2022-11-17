@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutters_tips_and_tricks/courses/bloc/course_progress_bloc.dart';
@@ -56,7 +57,7 @@ class _CourseDetailsPageState extends State<CourseDetailsPage> {
                         isOver: true,
                       ),
                     );
-                Navigator.of(context).pop();
+                context.router.pop();
               },
               child: const Icon(Icons.check),
             )

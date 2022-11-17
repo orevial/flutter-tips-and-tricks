@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutters_tips_and_tricks/localization/build_context_extension.dart';
 
@@ -40,7 +41,7 @@ class SettingsModal extends StatelessWidget {
 
   Widget _item(BuildContext context, ThemeMode mode) {
     return GestureDetector(
-      onTap: () => Navigator.pop(context, mode),
+      onTap: () => context.router.pop(mode),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
         child: Row(

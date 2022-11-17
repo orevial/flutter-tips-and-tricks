@@ -1,10 +1,11 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutters_tips_and_tricks/courses/bloc/course_list_bloc.dart';
 import 'package:flutters_tips_and_tricks/courses/bloc/course_progress_bloc.dart';
-import 'package:flutters_tips_and_tricks/courses/course_details.page.dart';
 import 'package:flutters_tips_and_tricks/courses/courses.model.dart';
 import 'package:flutters_tips_and_tricks/localization/build_context_extension.dart';
+import 'package:flutters_tips_and_tricks/navigation/app_router.dart';
 import 'package:flutters_tips_and_tricks/settings/settings_modal.dart';
 import 'package:flutters_tips_and_tricks/theme/bloc/theme_bloc.dart';
 import 'package:flutters_tips_and_tricks/widgets/page_content_error.widget.dart';
@@ -156,12 +157,10 @@ class CourseTile extends StatelessWidget {
                 ),
               );
         }
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (_) => CourseDetailsPage(
-              course: course,
-              initialPage: initialPage,
-            ),
+        context.router.push(
+          CourseDetailsRoute(
+            course: course,
+            initialPage: initialPage,
           ),
         );
       },
